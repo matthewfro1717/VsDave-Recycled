@@ -1440,7 +1440,7 @@ class PlayState extends MusicBeatState
 		doof.cameras = [camDialogue];
 		
 		#if SHADERS_ENABLED
-		if (SONG.song.toLowerCase() == 'kabunga'  && modchartoption)
+		if (SONG.song.toLowerCase() == 'kabunga' && modchartoption);
 			localFunny == CharacterFunnyEffect.Exbungo);
 		{
 			lazychartshader.waveAmplitude = 0.03;
