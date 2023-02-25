@@ -3994,7 +3994,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			if (note.isSustainNote)
+			if (isRecursed && !note.isSustainNote)
 			{
 				noteCount++;
 				notesLeftText.text = noteCount + '/' + notesLeft;
