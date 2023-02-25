@@ -695,7 +695,7 @@ class PlayState extends MusicBeatState
 				case 'bananacore | eletric-cockadoodledoo | electric-cockaldoodledoo':
 					stageCheck = 'banana-hell';
 				case 'confronting-yourself | cuzsie-x-kapi-shipping-cute':
-                    stageCheck = 'stage';
+					stageCheck = 'stage';
 			}
 		}
 		else
