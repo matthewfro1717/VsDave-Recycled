@@ -1228,15 +1228,15 @@ class PlayState extends MusicBeatState
 				else credits = LanguageManager.getTextString('exploitation_credit') + " " + (!FlxG.save.data.selfAwareness ? CoolSystemStuff.getUsername() : (shaggyVoice ? 'Shaggy' : 'Boyfriend')) + "!";
 			case 'kabunga':
 				credits = LanguageManager.getTextString('kabunga_credit');
-	        case 'electric-cockaldoodledoo':
+	                case 'electric-cockaldoodledoo':
 				credits = "Song by Cuzsie! (THIS SONG IS NOT CANON)";
-		    case 'electric-cockadoodledoo':
+		        case 'electric-cockadoodledoo':
 				credits = "Song by Cuzsie! (THIS SONG IS NOT CANON)";
-		    case 'confronting-yourself':
+		        case 'confronting-yourself':
 				credits = "Song by Cuzsie!";
-		    case 'bonkers':
+		        case 'bonkers':
 				credits = "Song by Cynda!";
-		    case 'cuzsie-x-kapi-shipping-cute':
+		        case 'cuzsie-x-kapi-shipping-cute':
 				credits = "Song by Cuzsie! (Original song from Golden Apple!)";
 			case 'bananacore':
 				credits = "Song by Cuzsie! (Original song from Golden Apple!) (THIS SONG IS NOT CANON)";
