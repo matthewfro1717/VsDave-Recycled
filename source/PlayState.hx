@@ -3992,7 +3992,7 @@ class PlayState extends MusicBeatState
 					{
 						spr.playAnim('confirm', true);
 					}
-				});
+				}
 			});
 
 			if (isRecursed && !note.isSustainNote)
