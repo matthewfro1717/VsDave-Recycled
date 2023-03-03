@@ -1443,7 +1443,8 @@ class PlayState extends MusicBeatState
 		if ((SONG.song.toLowerCase() == 'kabunga' || localFunny == CharacterFunnyEffect.Exbungo) && modchartoption) //i desperately wanted it so if you use downscroll it switches it to upscroll and flips the entire hud upside down but i never got to it
 		{
 			|| localFunny == CharacterFunnyEffect.Exbungo) // i desperately wanted it so if you use downscroll it switches it to upscroll and flips the entire hud upside down but i never got to it
-		{
+		}
+                {
 			lazychartshader.waveAmplitude = 0.03;
 			lazychartshader.waveFrequency = 5;
 			lazychartshader.waveSpeed = 1;
