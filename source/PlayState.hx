@@ -1228,15 +1228,15 @@ class PlayState extends MusicBeatState
 				else credits = LanguageManager.getTextString('exploitation_credit') + " " + (!FlxG.save.data.selfAwareness ? CoolSystemStuff.getUsername() : (shaggyVoice ? 'Shaggy' : 'Boyfriend')) + "!";
 			case 'kabunga':
 				credits = LanguageManager.getTextString('kabunga_credit');
-	                case 'electric-cockaldoodledoo':
+	        case 'electric-cockaldoodledoo':
 				credits = "Song by Cuzsie! (THIS SONG IS NOT CANON)";
-		        case 'electric-cockadoodledoo':
+		    case 'electric-cockadoodledoo':
 				credits = "Song by Cuzsie! (THIS SONG IS NOT CANON)";
-		        case 'confronting-yourself':
+		    case 'confronting-yourself':
 				credits = "Song by Cuzsie!";
-		        case 'bonkers':
+		    case 'bonkers':
 				credits = "Song by Cynda!";
-		        case 'cuzsie-x-kapi-shipping-cute':
+		    case 'cuzsie-x-kapi-shipping-cute':
 				credits = "Song by Cuzsie! (Original song from Golden Apple!)";
 			case 'bananacore':
 				credits = "Song by Cuzsie! (Original song from Golden Apple!) (THIS SONG IS NOT CANON)";
@@ -1439,10 +1439,10 @@ class PlayState extends MusicBeatState
 		doof.cameras = [camDialogue];
 		
 		#if SHADERS_ENABLED
-		if (SONG.song.toLowerCase() == 'kabunga'
+		if ((SONG.song.toLowerCase() == 'kabunga' || localFunny == CharacterFunnyEffect.Exbungo) && modchartoption) //i desperately wanted it so if you use downscroll it switches it to upscroll and flips the entire hud upside down but i never got to it
+		{
 			|| localFunny == CharacterFunnyEffect.Exbungo) // i desperately wanted it so if you use downscroll it switches it to upscroll and flips the entire hud upside down but i never got to it
-
-                {
+		{
 			lazychartshader.waveAmplitude = 0.03;
 			lazychartshader.waveFrequency = 5;
 			lazychartshader.waveSpeed = 1;
@@ -1892,6 +1892,21 @@ class PlayState extends MusicBeatState
 				sprites.add(bg);
 				add(bg);
 				voidShader(bg);
+				
+			case 'cuzsieKapi': // this is a Cockey moment
+				stageName = 'banana-hell';	
+				var back:BGSprite = new BGSprite('back', -600, -200, Paths.image('eletric-cockadoodledoo/kapicuzsie_back'), null, 0.9, 0.9);
+				cuzsieKapiEletricCockadoodledoo.push(back);
+				add(back);
+	                        back.visible = false;
+	
+				var stageFront:BGSprite = new BGSprite('stageFront', -650, 600, Paths.image('eletric-cockadoodledoo/kapicuzsie_front'), null, 0.9, 0.9);
+				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
+				stageFront.updateHitbox();
+				cuzsieKapiEletricCockadoodledoo.push(stageFront);
+				add(stageFront);
+				stageFront.visible = false;
+						
 			case 'interdimension-void':
 				bgZoom = 0.6;
 				stageName = 'interdimension';
@@ -2099,21 +2114,6 @@ class PlayState extends MusicBeatState
 				stageCurtains.updateHitbox();
 				sprites.add(stageCurtains);
 				add(stageCurtains);
-		
-		// that one cuzsie and kapi part of eletric cockadoodledoo
-		if (SONG.song.toLowerCase() == 'eletric-cockadoodledoo' | 'bananacore' | 'electric-cockaldoodledoo')
-		{
-			var bg:BGSprite = new BGSprite('bg', -600, -200, Paths.image('eletric-cockadoodledoo/kapicuzsie_back'), null, 0.9, 0.9);
-			cuzsieKapiEletricCockadoodledoo.push(bg);
-			add(bg);
-			bg.visible = false;
-	
-			var stageFront:BGSprite = new BGSprite('stageFront', -650, 600, Paths.image('eletric-cockadoodledoo/kapicuzsie_front'), null, 0.9, 0.9);
-			stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
-			stageFront.updateHitbox();
-			cuzsieKapiEletricCockadoodledoo.push(stageFront);
-			add(stageFront);
-			stageFront.visible = false;
 		}
 		if (!revertedBG)
 		{
@@ -4007,7 +4007,7 @@ class PlayState extends MusicBeatState
 						spr.playAnim('confirm', true);
 					}
 				}
-			});
+			}
 
 			if (isRecursed && !note.isSustainNote)
 			{
