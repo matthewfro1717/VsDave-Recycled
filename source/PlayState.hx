@@ -2100,6 +2100,36 @@ class PlayState extends MusicBeatState
 				stageCurtains.updateHitbox();
 				sprites.add(stageCurtains);
 				add(stageCurtains);
+		
+		// that one cuzsie and kapi part of eletric cockadoodledoo
+		if (SONG.song.toLowerCase() == "eletric-cockadoodledoo")
+		{
+			var bg:BGSprite = new BGSprite('bg', -600, -200, Paths.image('eletric-cockadoodledoo/kapicuzsie_back'), null, 0.9, 0.9);
+			cuzsieKapiEletricCockadoodledoo.push(bg);
+			add(bg);
+			bg.visible = false;
+	
+			var stageFront:BGSprite = new BGSprite('stageFront', -650, 600, Paths.image('eletric-cockadoodledoo/kapicuzsie_front'), null, 0.9, 0.9);
+			stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
+			stageFront.updateHitbox();
+			cuzsieKapiEletricCockadoodledoo.push(stageFront);
+			add(stageFront);
+			stageFront.visible = false;
+			
+		// that one cuzsie and kapi part of bananacore
+		if (SONG.song.toLowerCase() == "bananacore")
+		{
+			var bg:BGSprite = new BGSprite('bg', -600, -200, Paths.image('eletric-cockadoodledoo/kapicuzsie_back'), null, 0.9, 0.9);
+			cuzsieKapiEletricCockadoodledoo.push(bg);
+			add(bg);
+			bg.visible = false;
+	
+			var stageFront:BGSprite = new BGSprite('stageFront', -650, 600, Paths.image('eletric-cockadoodledoo/kapicuzsie_front'), null, 0.9, 0.9);
+			stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
+			stageFront.updateHitbox();
+			cuzsieKapiEletricCockadoodledoo.push(stageFront);
+			add(stageFront);
+			stageFront.visible = false;
 		}
 		if (!revertedBG)
 		{
@@ -4054,12 +4084,13 @@ class PlayState extends MusicBeatState
 					daNote.destroy();
 					}
 				}
-				if(daNote.mustPress && !botPlay) {
-					if (daNote.wasGoodHit && daNote.isSustainNote && Conductor.songPosition >= (daNote.strumTime)) {
+				if(daNote.mustPress && botPlay) {
+					if(daNote.strumTime <= Conductor.songPosition || (daNote.isSustainNote && daNote.canBeHit && daNote.prevNote.wasGoodHit)) {
 						goodNoteHit(daNote);
 						boyfriend.holdTimer = 0;
 					}
 				}
+
 				if (daNote.MyStrum != null)
 				{
 					daNote.y = yFromNoteStrumTime(daNote, daNote.MyStrum, scrollType == 'downscroll');
