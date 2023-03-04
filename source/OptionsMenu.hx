@@ -91,7 +91,6 @@ class OptionsMenu extends MusicBeatState
 			+ "\n" + LanguageManager.getTextString('option_change_langauge')
 			+ "\n" + (FlxG.save.data.disableFps ? LanguageManager.getTextString('option_enable_fps') : LanguageManager.getTextString('option_disable_fps'))
 			+ "\n" + (CompatTool.save.data.compatMode ? LanguageManager.getTextString('option_enable_compat') : LanguageManager.getTextString('option_disable_compat'))
-			+ "\n" + (FlxG.save.data.modchart ? 'Mod Chart OFF' : 'Mod Chart ON')
 			+ "\n" + (FlxG.save.data.botplay ? 'Bot Play ON' : 'Bot Play OFF')
 			);
 
@@ -201,9 +200,6 @@ class OptionsMenu extends MusicBeatState
 					CompatTool.save.data.compatMode = !CompatTool.save.data.compatMode;
 					updateGroupControls(CompatTool.save.data.compatMode ? LanguageManager.getTextString('option_enable_compat') : LanguageManager.getTextString('option_disable_compat'), 11, 'Vertical');
 				case 12:
-					FlxG.save.data.modchart = !FlxG.save.data.modchart;
-					updateGroupControls(FlxG.save.data.modchart ? 'Mod Chart OFF' : 'Mod Chart ON', 12, 'Vertical');
-				case 13:
                                         FlxG.save.data.botplay = !FlxG.save.data.botplay;
 					updateGroupControls(FlxG.save.data.botplay ? 'Bot Play ON' : 'Bot Play OFF', 13, 'Vertical');
 			}
