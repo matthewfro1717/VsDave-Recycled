@@ -695,7 +695,7 @@ class PlayState extends MusicBeatState
 				case 'bananacore | eletric-cockadoodledoo | electric-cockaldoodledoo':
 					stageCheck = 'banana-hell';
 				case 'confronting-yourself | cuzsie-x-kapi-shipping-cute':
-					stageCheck = 'stage';
+                    stageCheck = 'stage';
 			}
 		}
 		else
@@ -1228,13 +1228,13 @@ class PlayState extends MusicBeatState
 				else credits = LanguageManager.getTextString('exploitation_credit') + " " + (!FlxG.save.data.selfAwareness ? CoolSystemStuff.getUsername() : (shaggyVoice ? 'Shaggy' : 'Boyfriend')) + "!";
 			case 'kabunga':
 				credits = LanguageManager.getTextString('kabunga_credit');
-	                case 'electric-cockaldoodledoo':
+	        case 'electric-cockaldoodledoo':
 				credits = "Song by Cuzsie! (THIS SONG IS NOT CANON)";
-		        case 'electric-cockadoodledoo':
+		    case 'electric-cockadoodledoo':
 				credits = "Song by Cuzsie! (THIS SONG IS NOT CANON)";
-		        case 'confronting-yourself':
+		    case 'confronting-yourself':
 				credits = "Song by Cuzsie!";
-		        case 'bonkers':
+		    case 'bonkers':
 				credits = "Song by Cynda!";
 		    case 'cuzsie-x-kapi-shipping-cute':
 				credits = "Song by Cuzsie! (Original song from Golden Apple!)";
@@ -1373,6 +1373,7 @@ class PlayState extends MusicBeatState
 				preload('bananacore/muffin');
 				preload('bananacore/sad_bambi');
 				preload('bananacore/shaggy from fnf 1');
+			case 'bananacore':
 				preload('bananacore/characters/Bartholemew');
 				preload('bananacore/characters/Cockey');
 				preload('bananacore/characters/bombu');
@@ -1437,9 +1438,10 @@ class PlayState extends MusicBeatState
 			kadeEngineWatermark.cameras = [camHUD];
 		}
 		doof.cameras = [camDialogue];
-    
-		#if (SHADERS_ENABLED || mac)
-		if (SONG.song.toLowerCase() == 'kabunga'
+		
+		#if SHADERS_ENABLED
+		if ((SONG.song.toLowerCase() == 'kabunga' || localFunny == CharacterFunnyEffect.Exbungo) && modchartoption) //i desperately wanted it so if you use downscroll it switches it to upscroll and flips the entire hud upside down but i never got to it
+		{
 			|| localFunny == CharacterFunnyEffect.Exbungo) // i desperately wanted it so if you use downscroll it switches it to upscroll and flips the entire hud upside down but i never got to it
 		{
 			lazychartshader.waveAmplitude = 0.03;
@@ -1897,7 +1899,7 @@ class PlayState extends MusicBeatState
 				var back:BGSprite = new BGSprite('back', -600, -200, Paths.image('eletric-cockadoodledoo/kapicuzsie_back'), null, 0.9, 0.9);
 				cuzsieKapiEletricCockadoodledoo.push(back);
 				add(back);
-	                        back.visible = false;
+	      back.visible = false;
 	
 				var stageFront:BGSprite = new BGSprite('stageFront', -650, 600, Paths.image('eletric-cockadoodledoo/kapicuzsie_front'), null, 0.9, 0.9);
 				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
@@ -1905,7 +1907,7 @@ class PlayState extends MusicBeatState
 				cuzsieKapiEletricCockadoodledoo.push(stageFront);
 				add(stageFront);
 				stageFront.visible = false;
-						
+
 			case 'interdimension-void':
 				bgZoom = 0.6;
 				stageName = 'interdimension';
@@ -4006,7 +4008,7 @@ class PlayState extends MusicBeatState
 						spr.playAnim('confirm', true);
 					}
 				}
-			});
+			}
 
 			if (isRecursed && !note.isSustainNote)
 			{
@@ -4067,12 +4069,11 @@ class PlayState extends MusicBeatState
 					daNote.destroy();
 					}
 				}
-				if(daNote.mustPress && botPlay) 
-				{
-				      if(daNote.strumTime <= Conductor.songPosition || (daNote.isSustainNote && daNote.canBeHit && daNote.prevNote.wasGoodHit)) 
-				      goodNoteHit(daNote);
-				      boyfriend.holdTimer = 0;
-
+				if(daNote.mustPress && botPlay) {
+					if(daNote.strumTime <= Conductor.songPosition || (daNote.isSustainNote && daNote.canBeHit && daNote.prevNote.wasGoodHit)) {
+						goodNoteHit(daNote);
+						boyfriend.holdTimer = 0;
+					}
 				}
 
 				if (daNote.MyStrum != null)
