@@ -4067,8 +4067,10 @@ class PlayState extends MusicBeatState
 					daNote.destroy();
 					}
 				}
-				if(daNote.mustPress && botPlay) {
-					if(daNote.strumTime <= Conductor.songPosition || (daNote.isSustainNote && daNote.canBeHit && daNote.prevNote.wasGoodHit)) {
+				if(daNote.mustPress && botPlay) 
+				{
+					if(daNote.strumTime <= Conductor.songPosition || (daNote.isSustainNote && daNote.canBeHit && daNote.prevNote.wasGoodHit)) 
+					{
 						goodNoteHit(daNote);
 						boyfriend.holdTimer = 0;
 					}
