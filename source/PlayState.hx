@@ -4615,9 +4615,10 @@ if (!botPlay) {
 			case '3D' | 'shape':
 			  	assetPath = '3D/';
 		}
-
-		var placement:String = Std.string(daCombo);
-
+	}
+	
+	var placement:String = Std.string(daCombo);
+	{
 		var coolText:FlxText = new FlxText(daX, daY, 0, placement, 32);
 		if (autoPos)
 		{
@@ -4644,6 +4645,9 @@ if (!botPlay) {
 		{
 			add(comboSpr);
 		}
+	}
+
+	{
 
 		rating.setGraphicSize(Std.int(rating.width * 0.7));
 		rating.antialiasing = true;
@@ -4652,20 +4656,24 @@ if (!botPlay) {
 
 		comboSpr.updateHitbox();
 		rating.updateHitbox();
+	}
 
+	{
 		var seperatedScore:Array<Int> = [];
 
 		var comboSplit:Array<String> = (daCombo + "").split('');
-
+	}
 		if (comboSplit.length == 2)
 			seperatedScore.push(0); // make sure theres a 0 in front or it looks weird lol!
-
+	{
 		for (i in 0...comboSplit.length)
 		{
 			var str:String = comboSplit[i];
 			seperatedScore.push(Std.parseInt(str));
 		}
-
+	}
+	
+	{
 		var daLoop:Int = 0;
 		for (i in seperatedScore)
 		{
@@ -4681,7 +4689,9 @@ if (!botPlay) {
 			numScore.acceleration.y = FlxG.random.int(200, 300);
 			numScore.velocity.y -= FlxG.random.int(140, 160);
 			numScore.velocity.x = FlxG.random.float(-5, 5);
+		}
 
+		{
 			if (daCombo >= 10 || daCombo == 0)
 				add(numScore);
 
@@ -4708,6 +4718,7 @@ if (!botPlay) {
 		});
 
 		FlxTween.tween(comboSpr, {alpha: 0}, 0.2, {
+		{
 			onComplete: function(tween:FlxTween)
 			{
 				coolText.destroy();
@@ -4718,7 +4729,6 @@ if (!botPlay) {
 			startDelay: Conductor.crochet * 0.001
 		});
 	}
-
 
 	private function popUpScore(strumtime:Float, note:Note):Void
 	{
