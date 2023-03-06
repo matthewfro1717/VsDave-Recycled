@@ -3715,7 +3715,8 @@ class PlayState extends MusicBeatState
 			Conductor.songPosition += 10000;
 			notes.forEachAlive(function(daNote:Note)
 			{
-				if (daNote.strumTime + 800 < Conductor.songPosition) {
+			if(daNote.mustPress && botPlay) {
+				if (daNote.strumTime + 800 < Conductor.songPosition)
 					daNote.active = false;
 					daNote.visible = false;
 
@@ -4414,13 +4415,13 @@ if (!botPlay) {
 				// if ()
 				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
 
-				if (SONG.validScore)
+				if (SONG.validScore && !botPlay)
 				{
 					Highscore.saveWeekScore(storyWeek, campaignScore,
 						storyDifficulty, characteroverride == "none" || characteroverride == "bf" ? "bf" : characteroverride);
 				}
 
-				FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
+				if (!botPlay) FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
 				FlxG.save.flush();
 			}
 			else
@@ -4735,6 +4736,7 @@ if (!botPlay) {
 
 		var daRating:String = "sick";
 
+	if (!botPlay) {
 		if (noteDiff > Conductor.safeZoneOffset * 2)
 		{
 			daRating = 'shit';
@@ -4958,7 +4960,7 @@ if (!botPlay) {
 					daNote.destroy();
 				}
 			}
-			else if (!theFunne)
+			else if (!theFunne && !botPlay)
 			{
 				if(!inCutscene)
 					badNoteCheck(null);
@@ -4969,6 +4971,7 @@ if (!botPlay) {
 		{
 			notes.forEachAlive(function(daNote:Note)
 			{
+			    if(botPlay)
 				if (daNote.canBeHit && daNote.mustPress && daNote.isSustainNote)
 				{
 					if ((daNote.noteStyle == 'shape' && key5) || (daNote.noteStyle != 'shape' && !key5))
