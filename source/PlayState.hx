@@ -162,6 +162,11 @@ class PlayState extends MusicBeatState
 
 	public var elapsedexpungedtime:Float = 0;
 
+	var upHold:Bool = false;
+	var downHold:Bool = false;
+	var rightHold:Bool = false;
+	var leftHold:Bool = false;
+	
 	var focusOnDadGlobal:Bool = true;
 
 	var funnyFloatyBoys:Array<String> = ['dave-angey', 'bambi-3d', 'expunged', 'bambi-unfair', 'exbungo', 'dave-festival-3d', 'dave-3d-recursed', 'bf-3d'];
@@ -4800,11 +4805,6 @@ if (!botPlay) {
 	{
 		return Math.abs(FlxMath.roundDecimal(value1, 1) - FlxMath.roundDecimal(value2, 1)) < unimportantDifference;
 	}
-
-	var upHold:Bool = false;
-	var downHold:Bool = false;
-	var rightHold:Bool = false;
-	var leftHold:Bool = false;
 
 	private function keyShit():Void
 	{
