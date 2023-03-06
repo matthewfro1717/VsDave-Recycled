@@ -102,11 +102,11 @@ class CharacterSelectState extends MusicBeatState
 		new CharacterInSelect('tristan', [2, 0.5, 0.5, 0.5], [new CharacterForm('tristan', 'Tristan', [2, 0.5, 0.5, 0.5]),]),
 		new CharacterInSelect('tristan-golden', [0.25, 0.25, 0.25, 2], [new CharacterForm('tristan-golden', 'Golden Tristan', [0.25, 0.25, 0.25, 2])]),
 		new CharacterInSelect('dave-angey', [2, 2, 0.25, 0.25], [new CharacterForm('dave-angey', '3D Dave', [2, 2, 0.25, 0.25], '3D')]),
-		new CharacterInSelect('bambi-3d', [0, 3, 0, 0], [new CharacterForm('bambi-3d', 'bambi-unfair', 'bambi-unfair-old', 'Expunged', [0, 3, 0, 0], '3D'),])
-		new CharacterInSelect('cockey', [0, 3, 0, 0], [new CharacterForm('cockey-v2', 'cockey-old',[0, 3, 0, 0], '3D'),])
-		new CharacterInSelect('pissey', [0, 3, 0, 0], [new CharacterForm('pissey-v2',[0, 3, 0, 0], '3D'),])
-		new CharacterInSelect('pooper', [0, 3, 0, 0], [new CharacterForm('pooper-v2',[0, 3, 0, 0], '3D'),])
-		new CharacterInSelect('shartey', [0, 3, 0, 0], '3D'),])
+		new CharacterInSelect('bambi-3d', [0, 3, 0, 0], [new CharacterForm('bambi-3d', 'bambi-unfair', 'bambi-unfair-old', 'Expunged', [0, 3, 0, 0], '3D'),]),
+		new CharacterInSelect('cockey', [0, 3, 0, 0], [new CharacterForm('cockey-v2', 'cockey-old', [0, 3, 0, 0], '3D'),]),
+		new CharacterInSelect('pissey', [0, 3, 0, 0], [new CharacterForm('pissey-v2',[0, 3, 0, 0], '3D'),]),
+		new CharacterInSelect('pooper', [0, 3, 0, 0], [new CharacterForm('pooper-v2',[0, 3, 0, 0], '3D'),]),
+		new CharacterInSelect('shartey', [0, 3, 0, 0], '3D'),]),
 		new CharacterInSelect('bombu', [0, 3, 0, 0], '3D'),])
 	];
 
