@@ -92,6 +92,8 @@ import lime.ui.Window;
 import openfl.geom.Rectangle;
 import openfl.display.Sprite;
 
+import hxcodec.VideoHandler;
+
 using StringTools;
 
 class PlayState extends MusicBeatState
