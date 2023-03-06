@@ -4523,6 +4523,8 @@ if (!botPlay) {
 		}
 	}
 
+	}
+
 	var endingSong:Bool = false;
 
 	function nextSong()
