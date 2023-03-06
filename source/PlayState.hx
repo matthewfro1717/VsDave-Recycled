@@ -4611,7 +4611,7 @@ if (!botPlay) {
 		});
 	}
 
-	}	public function createScorePopUp(daX:Float, daY:Float, autoPos:Bool, daRating:String, daCombo:Int, daStyle:String):Void
+	public function createScorePopUp(daX:Float, daY:Float, autoPos:Bool, daRating:String, daCombo:Int, daStyle:String):Void
 	{
 		var assetPath:String = '';
 		switch (daStyle)
