@@ -1,7 +1,6 @@
 package;
 
 import flixel.FlxSprite;
-import PlayState;
 
 class StrumNote extends FlxSprite
 {
@@ -9,6 +8,7 @@ class StrumNote extends FlxSprite
 	public var baseY:Float;
 	public var playerStrum:Bool;
 	public var pressingKey5:Bool;
+
 	public function new(x:Float, y:Float, type:String, strumID:Int, playerStrum:Bool)
 	{
 		super(x, y);
@@ -69,61 +69,50 @@ class StrumNote extends FlxSprite
 				animation.addByPrefix('blue', 'arrowDOWN');
 				animation.addByPrefix('purple', 'arrowLEFT');
 				animation.addByPrefix('red', 'arrowRIGHT');
-
-				var nSuf:Array<String> = ['LEFT0', 'DOWN0', 'UP0', 'RIGHT0'];
-				var pPre:Array<String> = ['left', 'down', 'up', 'right'];
-				switch (PlayState.SONG.mania)
+				switch (Math.abs(strumID))
 				{
+					case 0:
+						animation.addByPrefix('static', 'arrowLEFT');
+						animation.addByPrefix('pressed', 'left press', 24, false);
+						animation.addByPrefix('confirm', 'left confirm', 24, false);
 					case 1:
-						nSuf = ['LEFT0', 'DOWN0', 'SPACE', 'UP0', 'RIGHT0'];
-						pPre = ['left', 'down', 'white', 'up', 'right'];
+						animation.addByPrefix('static', 'arrowDOWN');
+						animation.addByPrefix('pressed', 'down press', 24, false);
+						animation.addByPrefix('confirm', 'down confirm', 24, false);
 					case 2:
-						nSuf = ['LEFT0', 'UP0', 'RIGHT0', 'LEFT0', 'DOWN0', 'RIGHT0'];
-						pPre = ['left', 'up', 'right', 'yel', 'down', 'dark'];
+						animation.addByPrefix('static', 'arrowUP');
+						animation.addByPrefix('pressed', 'up press', 24, false);
+						animation.addByPrefix('confirm', 'up confirm', 24, false);
 					case 3:
-						nSuf = ['LEFT0', 'UP0', 'RIGHT0', 'SPACE', 'LEFT0', 'DOWN0', 'RIGHT0'];
-						pPre = ['left', 'up', 'right', 'white', 'yel', 'down', 'dark'];
-					case 4:
-						nSuf = ['LEFT0', 'DOWN0', 'UP0', 'RIGHT0', 'SPACE', 'LEFT0', 'DOWN0', 'UP0', 'RIGHT0'];
-						pPre = ['left', 'down', 'up', 'right', 'white', 'yel', 'violet', 'black', 'dark'];
-					case 5:
-						nSuf = ['LEFT0', 'DOWN0', 'UP0', 'RIGHT0', 'LEFTSHARP', 'DOWNSHARP', 'UPSHARP', 'RIGHTSHARP', 'LEFT0', 'DOWN0', 'UP0', 'RIGHT0'];
-						pPre = ['left', 'down', 'up', 'right', 'pink', 'turq', 'emerald', 'lightred', 'yel', 'violet', 'black', 'dark'];
+						animation.addByPrefix('static', 'arrowRIGHT');
+						animation.addByPrefix('pressed', 'right press', 24, false);
+						animation.addByPrefix('confirm', 'right confirm', 24, false);
 				}
-				animation.addByPrefix('static', 'arrow' + nSuf[strumID]);
-				animation.addByPrefix('pressed', pPre[strumID] + ' press', 24, false);
-				animation.addByPrefix('confirm', pPre[strumID] + ' confirm', 24, false);
 		}
-		playAnim('static');
+		animation.play('static');
 
 		antialiasing = type != '3D';
 
-		setGraphicSize(Std.int(width * (type == 'gh' ? 0.7 : Note.noteSize)));
+		setGraphicSize(Std.int(width * 0.7));
 		updateHitbox();
 
 		scrollFactor.set();
 
 		this.playerStrum = playerStrum;
 	}
+
 	public function resetX()
 	{
 		x = baseX;
 	}
+
 	public function resetY()
 	{
 		y = baseY;
 	}
+
 	public function centerStrum()
 	{
 		x = baseX + 320 * (playerStrum ? -1 : 1) + 78 / 4;
-	}
-    public function playAnim(anim:String, ?force:Bool = false) {
-        animation.play(anim, force);
-        updateHitbox();
-        offset.x = frameWidth / 2;
-        offset.y = frameHeight / 2;
-
-        offset.x -= 156 * Note.scales[PlayState.SONG.mania] / 2;
-        offset.y -= 156 * Note.scales[PlayState.SONG.mania] / 2;
 	}
 }
