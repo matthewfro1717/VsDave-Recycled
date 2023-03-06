@@ -22,6 +22,8 @@ import flixel.util.FlxTimer;
 import Discord.DiscordClient;
 #end
 
+import hxcodec.VideoHandler;
+
 using StringTools;
 
 class StoryMenuState extends MusicBeatState
