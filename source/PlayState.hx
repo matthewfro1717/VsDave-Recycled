@@ -4751,7 +4751,7 @@ if (!botPlay) {
 		});
 	}
 
-	} private function popUpScore(strumtime:Float, note:Note):Void
+	private function popUpScore(strumtime:Float, note:Note):Void
 	{
 		var noteDiff:Float = Math.abs(strumtime - Conductor.songPosition);
 		// boyfriend.playAnim('hey');
