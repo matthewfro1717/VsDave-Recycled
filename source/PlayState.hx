@@ -3947,7 +3947,7 @@ class PlayState extends MusicBeatState
 					
 					dadStrums.forEach(function(sprite:StrumNote)
 					{
-						if (Math.abs(Math.round(Math.abs(daNote.noteData)) % dad) == sprite.ID)
+						if (Math.abs(Math.round(Math.abs(daNote.noteData)) % dadStrumAmount) == sprite.ID)
 						{
 							sprite.animation.play('confirm', true);
 							if (sprite.animation.curAnim.name == 'confirm')
