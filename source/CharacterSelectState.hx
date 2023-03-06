@@ -92,16 +92,17 @@ class CharacterSelectState extends MusicBeatState
 	var basePosition:FlxPoint;
 
 	public var characters:Array<CharacterInSelect> = [
-	new CharacterInSelect('bf', [1, 1, 1, 1],
-	[
-		new CharacterForm('bf', 'Boyfriend', [1, 1, 1, 1]),
-		new CharacterForm('bf-pixel', 'Pixel Boyfriend', [1, 1, 1, 1])]),
+		new CharacterInSelect('bf', [1, 1, 1, 1],
+			[
+				new CharacterForm('bf', 'Boyfriend', [1, 1, 1, 1]),
+				new CharacterForm('bf-pixel', 'Pixel Boyfriend', [1, 1, 1, 1])
+			]),
 		new CharacterInSelect('dave', [0.25, 0.25, 2, 2], [new CharacterForm('dave', 'Dave', [0.25, 0.25, 2, 2]),]),
 		new CharacterInSelect('bambi', [0, 0, 3, 0], [new CharacterForm('bambi-new', 'Bambi', [0, 0, 3, 0]),]),
 		new CharacterInSelect('tristan', [2, 0.5, 0.5, 0.5], [new CharacterForm('tristan', 'Tristan', [2, 0.5, 0.5, 0.5]),]),
 		new CharacterInSelect('tristan-golden', [0.25, 0.25, 0.25, 2], [new CharacterForm('tristan-golden', 'Golden Tristan', [0.25, 0.25, 0.25, 2])]),
 		new CharacterInSelect('dave-angey', [2, 2, 0.25, 0.25], [new CharacterForm('dave-angey', '3D Dave', [2, 2, 0.25, 0.25], '3D')]),
-		new CharacterInSelect('bambi-3d', [0, 3, 0, 0], [new CharacterForm('bambi-3d', 'bambi-unfair', 'Expunged', [0, 3, 0, 0], '3D'),]),
+		new CharacterInSelect('bambi-3d', [0, 3, 0, 0], [new CharacterForm('bambi-3d', 'Expunged', [0, 3, 0, 0], '3D'),])
 	];
 
 	#if SHADERS_ENABLED
