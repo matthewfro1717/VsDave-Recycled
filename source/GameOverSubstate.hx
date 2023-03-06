@@ -16,9 +16,8 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	var stageSuffix:String = "";
 	var deathSuffix:String = '';
-	var losetime:Bool = false;
 
-	public function new(x:Float, y:Float,char:String)
+	public function new(x:Float, y:Float, char:String)
 	{
 		var daBf:String = '';
 		switch (char)
@@ -48,12 +47,6 @@ class GameOverSubstate extends MusicBeatSubstate
 			case 'dave-fnaf' | 'bf-cool':
 				daBf = 'generic-death';
 				deathSuffix = '-generic';
-			case 'shaggy' | 'supershaggy' | 'godshaggy':
-				daBf = 'shaggy-lose';
-				deathSuffix = '-shaggy';
-			case 'redshaggy':
-				daBf = 'redshaggy-lose';
-				deathSuffix = '-shaggy';
 
 			default:
 				daBf = char;
@@ -69,7 +62,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		Conductor.songPosition = 0;
 
 		bf = new Boyfriend(x, y, daBf);
-		if(bf.animation.getByName('firstDeath') == null)
+		if (bf.animation.getByName('firstDeath') == null)
 		{
 			bf = new Boyfriend(x, y, "bf");
 		}
@@ -87,8 +80,6 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.target = null;
 
 		bf.playAnim('firstDeath');
-		
-		if (deathSuffix == '-shaggy') new FlxTimer().start(2.375, function(tmr:FlxTimer) { losetime = true; });
 	}
 
 	override function update(elapsed:Float)
@@ -128,9 +119,8 @@ class GameOverSubstate extends MusicBeatSubstate
 			FlxG.camera.follow(camFollow, LOCKON, 0.01);
 		}
 
-		if ((bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished && deathSuffix != '-shaggy') || (losetime && !isEnding))
+		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished)
 		{
-			losetime = false;
 			FlxG.sound.playMusic(Paths.music('gameOver' + stageSuffix));
 		}
 
@@ -142,7 +132,6 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	override function beatHit()
 	{
-		
 	}
 
 	var isEnding:Bool = false;
