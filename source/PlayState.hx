@@ -303,7 +303,7 @@ class PlayState extends MusicBeatState
 	var video:VideoHandler;
 	public var modchart:ExploitationModchartType;
 	var weirdBG:FlxSprite;
-	var cuzsieKapiBananacore:Array<FlxSprite> = [];
+	var cuzsieKapiEletricCockadoodledoo:Array<FlxSprite> = [];
 
 	var mcStarted:Bool = false; 
 	public var noMiss:Bool = false;
@@ -4609,7 +4609,37 @@ if (!botPlay) {
 		});
 	}
 
-	}	public function createScorePopUp(daX:Float, daY:Float, autoPos:Bool, daRating:String, daCombo:Int, daStyle:String):Void
+	function nextSong()
+	{
+		var difficulty:String = "";
+
+		switch (storyDifficulty)
+		{
+			case 0:
+				difficulty = '-easy';
+			case 2:
+				difficulty = '-hard';
+		}
+
+		trace(PlayState.storyPlaylist[0].toLowerCase() + difficulty);
+
+		FlxTransitionableState.skipNextTransIn = true;
+		FlxTransitionableState.skipNextTransOut = true;
+		prevCamFollow = camFollow;
+
+		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + difficulty, PlayState.storyPlaylist[0]);
+		FlxG.sound.music.stop();
+		
+		switch (curSong.toLowerCase())
+		{
+			case 'corn-theft':
+				LoadingState.loadAndSwitchState(new VideoState('assets/videos/mazeecutscenee.webm', new PlayState()), false);
+			default:
+				LoadingState.loadAndSwitchState(new PlayState());
+		}
+	}
+
+	public function createScorePopUp(daX:Float, daY:Float, autoPos:Bool, daRating:String, daCombo:Int, daStyle:String):Void
 	{
 		var assetPath:String = '';
 		switch (daStyle)
