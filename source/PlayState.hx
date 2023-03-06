@@ -3720,8 +3720,9 @@ class PlayState extends MusicBeatState
 			Conductor.songPosition += 10000;
 			notes.forEachAlive(function(daNote:Note)
 			{
-			if(daNote.mustPress && botPlay) {
+			if(daNote.mustPress && botPlay)
 				if (daNote.strumTime + 800 < Conductor.songPosition)
+				{	
 					daNote.active = false;
 					daNote.visible = false;
 
@@ -4290,7 +4291,7 @@ class PlayState extends MusicBeatState
 			closeExpungedWindow();
 		}
 		#end
-if (!botPlay) {
+if (!botPlay)
 		// Song Character Unlocks (Story Mode)
 		if (isStoryMode)
 		{
