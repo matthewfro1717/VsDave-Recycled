@@ -4721,8 +4721,8 @@ if (!botPlay) {
 		});
 	}
 	
-	var placement:String = Std.string(daCombo);
-	{
+		var placement:String = Std.string(daCombo);
+
 		var coolText:FlxText = new FlxText(daX, daY, 0, placement, 32);
 		if (autoPos)
 		{
@@ -4749,9 +4749,6 @@ if (!botPlay) {
 		{
 			add(comboSpr);
 		}
-	}
-
-	{
 
 		rating.setGraphicSize(Std.int(rating.width * 0.7));
 		rating.antialiasing = true;
@@ -4760,24 +4757,20 @@ if (!botPlay) {
 
 		comboSpr.updateHitbox();
 		rating.updateHitbox();
-	}
 
-	{
 		var seperatedScore:Array<Int> = [];
 
 		var comboSplit:Array<String> = (daCombo + "").split('');
-	}
+
 		if (comboSplit.length == 2)
 			seperatedScore.push(0); // make sure theres a 0 in front or it looks weird lol!
-	{
+
 		for (i in 0...comboSplit.length)
 		{
 			var str:String = comboSplit[i];
 			seperatedScore.push(Std.parseInt(str));
 		}
-	}
-	
-	{
+
 		var daLoop:Int = 0;
 		for (i in seperatedScore)
 		{
@@ -4793,9 +4786,7 @@ if (!botPlay) {
 			numScore.acceleration.y = FlxG.random.int(200, 300);
 			numScore.velocity.y -= FlxG.random.int(140, 160);
 			numScore.velocity.x = FlxG.random.float(-5, 5);
-		}
 
-		{
 			if (daCombo >= 10 || daCombo == 0)
 				add(numScore);
 
@@ -4883,7 +4874,7 @@ if (!botPlay) {
 		}
 		score = cast(FlxMath.roundDecimal(cast(score, Float) * curmult[note.noteData], 0), Int); //this is old code thats stupid Std.Int exists but i dont feel like changing this
 
-if (!botPlay)
+            if (!botPlay)
 		if (!noMiss)
 		{
 			songScore += score;
