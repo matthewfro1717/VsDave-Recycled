@@ -92,11 +92,10 @@ class CharacterSelectState extends MusicBeatState
 	var basePosition:FlxPoint;
 
 	public var characters:Array<CharacterInSelect> = [
-		new CharacterInSelect('bf', [1, 1, 1, 1],
-			[
-				new CharacterForm('bf', 'Boyfriend', [1, 1, 1, 1]),
-				new CharacterForm('bf-pixel', 'Pixel Boyfriend', [1, 1, 1, 1])
-			]),
+	new CharacterInSelect('bf', [1, 1, 1, 1],
+	[
+		new CharacterForm('bf', 'Boyfriend', [1, 1, 1, 1]),
+		new CharacterForm('bf-pixel', 'Pixel Boyfriend', [1, 1, 1, 1])]),
 		new CharacterInSelect('dave', [0.25, 0.25, 2, 2], [new CharacterForm('dave', 'Dave', [0.25, 0.25, 2, 2]),]),
 		new CharacterInSelect('bambi', [0, 0, 3, 0], [new CharacterForm('bambi-new', 'Bambi', [0, 0, 3, 0]),]),
 		new CharacterInSelect('tristan', [2, 0.5, 0.5, 0.5], [new CharacterForm('tristan', 'Tristan', [2, 0.5, 0.5, 0.5]),]),
@@ -107,7 +106,7 @@ class CharacterSelectState extends MusicBeatState
 		new CharacterInSelect('pissey', [0, 3, 0, 0], [new CharacterForm('pissey-v2',[0, 3, 0, 0], '3D'),]),
 		new CharacterInSelect('pooper', [0, 3, 0, 0], [new CharacterForm('pooper-v2',[0, 3, 0, 0], '3D'),]),
 		new CharacterInSelect('shartey', [0, 3, 0, 0], '3D'),]),
-		new CharacterInSelect('bombu', [0, 3, 0, 0], '3D'),])
+		new CharacterInSelect('bombu', [0, 3, 0, 0], '3D'),]),
 	];
 
 	#if SHADERS_ENABLED
