@@ -7461,7 +7461,7 @@ if (!botPlay) {
 			kadeEngineWatermark.font = Paths.font('exploit/${chosenFont}.ttf');
 			creditsWatermark.font = Paths.font('exploit/${chosenFont}.ttf');
 			scoreTxt.font = Paths.font('exploit/${chosenFont}.ttf');
-            botplayTxt.font = Paths.font('exploit/${chosenFont}.ttf');
+                        botplayTxt.font = Paths.font('exploit/${chosenFont}.ttf');
 			if (songName != null)
 			{
 				songName.font = Paths.font('exploit/${chosenFont}.ttf');
