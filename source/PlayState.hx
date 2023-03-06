@@ -303,7 +303,7 @@ class PlayState extends MusicBeatState
 	var video:VideoHandler;
 	public var modchart:ExploitationModchartType;
 	var weirdBG:FlxSprite;
-	var cuzsieKapiBananacore:Array<FlxSprite> = [];
+	var cuzsieKapiEletricCockadoodledoo:Array<FlxSprite> = [];
 
 	var mcStarted:Bool = false; 
 	public var noMiss:Bool = false;
