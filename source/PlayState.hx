@@ -4352,7 +4352,7 @@ class PlayState extends MusicBeatState
 					case "bonus-song":
 						CharacterSelectState.unlockCharacter('dave');
 					case "cheating":
-						if (modchartoption) CharacterSelectState.unlockCharacter('bambi-3d');
+						CharacterSelectState.unlockCharacter('bambi-3d');
 				}
 			}
 		}
@@ -4364,7 +4364,6 @@ class PlayState extends MusicBeatState
 				FlxG.save.data.exploitationState = '';
 				Application.current.window.title = Main.applicationName;
 				Main.toggleFuckedFPS(false);
-				if (storyDifficulty == 0 && modchartoption) CharacterSelectState.unlockCharacter('godshaggy');
 			case 'five-nights':
 				FlxG.mouse.visible = false;
 			case 'roofs':
@@ -4859,7 +4858,7 @@ class PlayState extends MusicBeatState
 			totalNotesHit += 1;
 			sicks++;
 		}
-		score = cast(FlxMath.roundDecimal(cast(score, Float) * curmultDefine[note.noteData], 0), Int); //this is old code thats stupid Std.Int exists but i dont feel like changing this
+		score = cast(FlxMath.roundDecimal(cast(score, Float) * curmult[note.noteData], 0), Int); //this is old code thats stupid Std.Int exists but i dont feel like changing this
 
 		if (!noMiss)
 		{
