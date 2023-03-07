@@ -4157,7 +4157,6 @@ class PlayState extends MusicBeatState
 			{
 				if (!bfplaying)
 				{
-					if (daNote.mustPress && botPlay)
 					{
 						bfplaying = true;
 					}
