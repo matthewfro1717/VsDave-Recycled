@@ -4459,13 +4459,13 @@ if (!botPlay) {
 				// if ()
 				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
 
-				if (SONG.validScore)
+				if (SONG.validScore && !botPlay)
 				{
 					Highscore.saveWeekScore(storyWeek, campaignScore,
 						storyDifficulty, characteroverride == "none" || characteroverride == "bf" ? "bf" : characteroverride);
 				}
 
-				FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
+				if (!botPlay) FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
 				FlxG.save.flush();
 			}
 			else
@@ -4780,46 +4780,47 @@ if (!botPlay) {
 
 		var daRating:String = "sick";
 
-		if (noteDiff > Conductor.safeZoneOffset * 2)
-		{
-			daRating = 'shit';
-			totalNotesHit -= 2;
-			score = 10;
-			ss = false;
-			shits++;
-		}
-		else if (noteDiff < Conductor.safeZoneOffset * -2)
-		{
-			daRating = 'shit';
-			totalNotesHit -= 2;
-			score = 25;
-			ss = false;
-			shits++;
-		}
-		else if (noteDiff > Conductor.safeZoneOffset * 0.45)
-		{
-			daRating = 'bad';
-			score = 100;
-			totalNotesHit += 0.2;
-			ss = false;
-			bads++;
-		}
-		else if (noteDiff > Conductor.safeZoneOffset * 0.25)
-		{
-			daRating = 'good';
-			totalNotesHit += 0.65;
-			score = 200;
-			ss = false;
-			goods++;
+		if (!botPlay) {
+			if (noteDiff > Conductor.safeZoneOffset * 2)
+			{
+				daRating = 'shit';
+				totalNotesHit -= 2;
+				score = 10;
+				ss = false;
+				shits++;
+			}
+			else if (noteDiff < Conductor.safeZoneOffset * -2)
+			{
+				daRating = 'shit';
+				totalNotesHit -= 2;
+				score = 25;
+				ss = false;
+				shits++;
+			}
+			else if (noteDiff > Conductor.safeZoneOffset * 0.45)
+			{
+				daRating = 'bad';
+				score = 100;
+				totalNotesHit += 0.2;
+				ss = false;
+				bads++;
+			}
+			else if (noteDiff > Conductor.safeZoneOffset * 0.25)
+			{
+				daRating = 'good';
+				totalNotesHit += 0.65;
+				score = 200;
+				ss = false;
+				goods++;
+			}
 		}
 		if (daRating == 'sick')
 		{
 			totalNotesHit += 1;
 			sicks++;
 		}
-		score = cast(FlxMath.roundDecimal(cast(score, Float) * curmult[note.noteData], 0), Int); //this is old code thats stupid Std.Int exists but i dont feel like changing this
+		score = cast(FlxMath.roundDecimal(cast(score, Float) * curmultDefine[note.noteData], 0), Int); //this is old code thats stupid Std.Int exists but i dont feel like changing this
 
-            if (!botPlay)
 		if (!noMiss)
 		{
 			songScore += score;
@@ -5239,12 +5240,12 @@ if (!botPlay) {
 		{
 			if (!note.isSustainNote)
 			{
+				combo += 1;
 				popUpScore(note.strumTime, note);
 				if (FlxG.save.data.donoteclick)
 				{
 					FlxG.sound.play(Paths.sound('note_click'));
 				}
-				combo += 1;
 			}
 			else
 				totalNotesHit += 1;
@@ -5301,7 +5302,7 @@ if (!botPlay) {
 						}
 					}
 					boyfriend.playAnim('sing' + fuckingDumbassBullshitFuckYou, true);
-
+					cameraMoveOnNote(fuckingDumbassBullshitFuckYou, 'bf');
 				case 'phone':
 					var hitAnimation:Bool = boyfriend.animation.getByName("dodge") != null;
 					var heyAnimation:Bool = boyfriend.animation.getByName("hey") != null;
@@ -5312,7 +5313,6 @@ if (!botPlay) {
 						dad.playAnim(dad.animation.getByName("singThrow") == null ? 'singSmash' : 'singThrow', true);
 					}
 			}
-			cameraMoveOnNote(note.originalType, 'bf');
 			if (UsingNewCam)
 			{
 				focusOnDadGlobal = false;
@@ -5321,12 +5321,24 @@ if (!botPlay) {
 
 			playerStrums.forEach(function(spr:StrumNote)
 			{
-			if(botPlay)
-				if (Math.abs(note.noteData) == spr.ID)
-				{
-					spr.animation.play('confirm', true);
+				if(botPlay) {
+					if (Math.abs(Math.round(Math.abs(note.noteData)) % playerStrumAmount) == spr.ID)
+					{
+						spr.playAnim('confirm', true);
+						spr.animation.finishCallback = function(name:String)
+						{
+							spr.playAnim('static', true);
+						}
+					}
+					spr.pressingKey5 = note.noteStyle == 'shape';
+				} else {
+					if (Math.abs(note.noteData) == spr.ID)
+					{
+						spr.playAnim('confirm', true);
+					}
 				}
 			});
+
 			if (isRecursed && !note.isSustainNote)
 			{
 				noteCount++;
@@ -5341,9 +5353,12 @@ if (!botPlay) {
 			note.wasGoodHit = true;
 			vocals.volume = 1;
 
-			note.kill();
-			notes.remove(note, true);
-			note.destroy();
+			if (!note.isSustainNote)
+			{
+				note.kill();
+				notes.remove(note, true);
+				note.destroy();
+			}
 
 			updateAccuracy();
 		}
