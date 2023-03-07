@@ -161,11 +161,6 @@ class PlayState extends MusicBeatState
 	public var elapsedtime:Float = 0;
 
 	public var elapsedexpungedtime:Float = 0;
-
-	var upHold:Bool = false;
-	var downHold:Bool = false;
-	var rightHold:Bool = false;
-	var leftHold:Bool = false;
 	
 	var focusOnDadGlobal:Bool = true;
 
@@ -4806,6 +4801,11 @@ if (!botPlay)
 	{
 		return Math.abs(FlxMath.roundDecimal(value1, 1) - FlxMath.roundDecimal(value2, 1)) < unimportantDifference;
 	}
+
+	var upHold:Bool = false;
+	var downHold:Bool = false;
+	var rightHold:Bool = false;
+	var leftHold:Bool = false;
 
 	private function keyShit():Void
 	{
