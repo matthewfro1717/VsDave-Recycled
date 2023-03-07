@@ -4328,28 +4328,32 @@ class PlayState extends MusicBeatState
 		#if windows
 		if (window != null)
 		{
-			closeExpungedWindow();
+			window.close();
+			expungedWindowMode = false;
+			window = null;
 		}
 		#end
-if (!botPlay) {
-		// Song Character Unlocks (Story Mode)
-		if (isStoryMode)
-		{
-			switch (curSong.toLowerCase())
+
+		if (!botPlay) {
+			// Song Character Unlocks (Story Mode)
+			if (isStoryMode)
 			{
-				case "polygonized":
-					CharacterSelectState.unlockCharacter('dave-angey');
+				switch (curSong.toLowerCase())
+				{
+					case "polygonized":
+						CharacterSelectState.unlockCharacter('dave-angey');
+				}
 			}
-		}
-		// Song Character Unlocks (Freeplay)
-		else
-		{
-			switch (curSong.toLowerCase())
+			// Song Character Unlocks (Freeplay)
+			else
 			{
-				case "bonus-song":
-					CharacterSelectState.unlockCharacter('dave');
-				case "cheating":
-					CharacterSelectState.unlockCharacter('bambi-3d');
+				switch (curSong.toLowerCase())
+				{
+					case "bonus-song":
+						CharacterSelectState.unlockCharacter('dave');
+					case "cheating":
+						if (modchartoption) CharacterSelectState.unlockCharacter('bambi-3d');
+				}
 			}
 		}
 		switch (SONG.song.toLowerCase())
@@ -4360,8 +4364,11 @@ if (!botPlay) {
 				FlxG.save.data.exploitationState = '';
 				Application.current.window.title = Main.applicationName;
 				Main.toggleFuckedFPS(false);
+				if (storyDifficulty == 0 && modchartoption) CharacterSelectState.unlockCharacter('godshaggy');
 			case 'five-nights':
 				FlxG.mouse.visible = false;
+			case 'roofs':
+				if (storyDifficulty == 0) CharacterSelectState.unlockCharacter('redshaggy');
 		}
 		if (isStoryMode)
 		{
@@ -4370,6 +4377,7 @@ if (!botPlay) {
 			var completedSongs:Array<String> = [];
 			var mustCompleteSongs:Array<String> = ['House', 'Insanity', 'Polygonized', 'Blocked', 'Corn-Theft', 'Maze', 'Splitathon', 'Shredder', 'Greetings', 'Interdimensional', 'Rano'];
 			var allSongsCompleted:Bool = true;
+		
 			if (FlxG.save.data.songsCompleted == null)
 			{
 				FlxG.save.data.songsCompleted = new Array<String>();
@@ -4405,11 +4413,15 @@ if (!botPlay) {
 						CharacterSelectState.unlockCharacter('tristan');
 						if (health >= 0.1)
 						{
+							if (storyDifficulty == 2)
+							{
+								CharacterSelectState.unlockCharacter('dave-angey');
+							}
 							FlxG.switchState(new EndingState('goodEnding', 'goodEnding'));
 						}
 						else if (health < 0.1)
 						{
-							CharacterSelectState.unlockCharacter('dave-angey');
+							CharacterSelectState.unlockCharacter('bambi');
 							FlxG.switchState(new EndingState('vomit_ending', 'badEnding'));
 						}
 						else
@@ -4461,13 +4473,13 @@ if (!botPlay) {
 				// if ()
 				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
 
-				if (SONG.validScore)
+				if (SONG.validScore && !botPlay)
 				{
 					Highscore.saveWeekScore(storyWeek, campaignScore,
 						storyDifficulty, characteroverride == "none" || characteroverride == "bf" ? "bf" : characteroverride);
 				}
 
-				FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
+				if (!botPlay) FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
 				FlxG.save.flush();
 			}
 			else
@@ -4534,6 +4546,32 @@ if (!botPlay) {
 		}
 		else
 		{
+			if (storyDifficulty == 0) {
+				var completedSongs:Array<String> = [];
+				var mustCompleteSongs:Array<String> = ['House', 'Insanity', 'Polygonized', 'Blocked', 'Corn-Theft', 'Maze', 'Splitathon', 'Shredder', 'Greetings', 'Interdimensional', 'Rano'];
+				var allSongsCompleted:Bool = true;
+			
+				if (FlxG.save.data.songsCompletedCanon == null)
+				{
+					FlxG.save.data.songsCompletedCanon = new Array<String>();
+				}
+				completedSongs = FlxG.save.data.songsCompletedCanon;
+				if (!botPlay) completedSongs.push(curSong);
+				for (i in 0...mustCompleteSongs.length)
+				{
+					if (!completedSongs.contains(mustCompleteSongs[i]))
+					{
+						allSongsCompleted = false;
+						break;
+					}
+				}
+				if (allSongsCompleted && CharacterSelectState.isLocked('supershaggy'))
+				{
+					CharacterSelectState.unlockCharacter('supershaggy');
+				}
+				FlxG.save.data.songsCompletedCanon = completedSongs;
+				FlxG.save.flush();
+			}
 			switch (SONG.song.toLowerCase())
 			{
 				case 'glitch':
@@ -4572,7 +4610,6 @@ if (!botPlay) {
 		}
 	}
 
-	}
 
 	var endingSong:Bool = false;
 
@@ -4772,6 +4809,7 @@ if (!botPlay) {
 		});
 	}
 
+
 	private function popUpScore(strumtime:Float, note:Note):Void
 	{
 		var noteDiff:Float = Math.abs(strumtime - Conductor.songPosition);
@@ -4782,46 +4820,47 @@ if (!botPlay) {
 
 		var daRating:String = "sick";
 
-		if (noteDiff > Conductor.safeZoneOffset * 2)
-		{
-			daRating = 'shit';
-			totalNotesHit -= 2;
-			score = 10;
-			ss = false;
-			shits++;
-		}
-		else if (noteDiff < Conductor.safeZoneOffset * -2)
-		{
-			daRating = 'shit';
-			totalNotesHit -= 2;
-			score = 25;
-			ss = false;
-			shits++;
-		}
-		else if (noteDiff > Conductor.safeZoneOffset * 0.45)
-		{
-			daRating = 'bad';
-			score = 100;
-			totalNotesHit += 0.2;
-			ss = false;
-			bads++;
-		}
-		else if (noteDiff > Conductor.safeZoneOffset * 0.25)
-		{
-			daRating = 'good';
-			totalNotesHit += 0.65;
-			score = 200;
-			ss = false;
-			goods++;
+		if (!botPlay) {
+			if (noteDiff > Conductor.safeZoneOffset * 2)
+			{
+				daRating = 'shit';
+				totalNotesHit -= 2;
+				score = 10;
+				ss = false;
+				shits++;
+			}
+			else if (noteDiff < Conductor.safeZoneOffset * -2)
+			{
+				daRating = 'shit';
+				totalNotesHit -= 2;
+				score = 25;
+				ss = false;
+				shits++;
+			}
+			else if (noteDiff > Conductor.safeZoneOffset * 0.45)
+			{
+				daRating = 'bad';
+				score = 100;
+				totalNotesHit += 0.2;
+				ss = false;
+				bads++;
+			}
+			else if (noteDiff > Conductor.safeZoneOffset * 0.25)
+			{
+				daRating = 'good';
+				totalNotesHit += 0.65;
+				score = 200;
+				ss = false;
+				goods++;
+			}
 		}
 		if (daRating == 'sick')
 		{
 			totalNotesHit += 1;
 			sicks++;
 		}
-		score = cast(FlxMath.roundDecimal(cast(score, Float) * curmult[note.noteData], 0), Int); //this is old code thats stupid Std.Int exists but i dont feel like changing this
+		score = cast(FlxMath.roundDecimal(cast(score, Float) * curmultDefine[note.noteData], 0), Int); //this is old code thats stupid Std.Int exists but i dont feel like changing this
 
-            if (!botPlay)
 		if (!noMiss)
 		{
 			songScore += score;
