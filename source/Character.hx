@@ -1188,7 +1188,7 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 			case 'shartey':
-				frames = Paths.getSparrowAtlas('eletric-cockadoodledoo/characters/v2/Shartey', 'shared');
+				frames = Paths.getSparrowAtlas('eletric-cockadoodledoo/characters/Shartey', 'shared');
 				animation.addByPrefix('idle', 'Shartey idle', 24, false);
 				animation.addByPrefix('singUP', 'Shartey up', 24, false);
 				animation.addByPrefix('singRIGHT', 'Shartey right', 24, false);
@@ -1285,7 +1285,7 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 			case 'cockey-v2':
-				frames = Paths.getSparrowAtlas('eletric-cockadoodledoo/characters/v2/Cockey', 'shared');
+				frames = Paths.getSparrowAtlas('eletric-cockadoodledoo/characters/Cockey_v2', 'shared');
 				animation.addByPrefix('idle', 'Cockey idle', 24, false);
 				animation.addByPrefix('singUP', 'Cockey up', 24, false);
 				animation.addByPrefix('singRIGHT', 'Cockey right', 24, false);
@@ -1303,7 +1303,7 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 			case 'pissey-v2':
-				frames = Paths.getSparrowAtlas('eletric-cockadoodledoo/characters/v2/Pissey', 'shared');
+				frames = Paths.getSparrowAtlas('eletric-cockadoodledoo/characters/Pissey_v2', 'shared');
 				animation.addByPrefix('idle', 'idle', 24, false);
 				animation.addByPrefix('singUP', 'up', 24, false);
 				animation.addByPrefix('singRIGHT', 'right', 24, false);
@@ -1323,7 +1323,7 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 			case 'pooper-v2':
-				frames = Paths.getSparrowAtlas('eletric-cockadoodledoo/characters/Pooper', 'shared');
+				frames = Paths.getSparrowAtlas('eletric-cockadoodledoo/characters/Pooper_v2', 'shared');
 				animation.addByPrefix('idle', 'idle', 24, false);
 				animation.addByPrefix('singUP', 'up', 24, false);
 				animation.addByPrefix('singRIGHT', 'right', 24, false);
