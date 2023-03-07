@@ -4069,14 +4069,16 @@ class PlayState extends MusicBeatState
 				}
 				if (!daNote.wasGoodHit && daNote.mustPress && daNote.finishedGenerating && Conductor.songPosition >= daNote.strumTime + (350 / (0.45 * FlxMath.roundDecimal(SONG.speed * noteSpeed, 2))))
 				{
-					if (!noMiss)
-						noteMiss(daNote.originalType, daNote);
-
-					vocals.volume = 0;
+					if (!botPlay) {
+						if (!noMiss)
+							noteMiss(daNote.originalType, daNote);
+	
+						vocals.volume = 0;
+					}
 
 					destroyNote(daNote);
 				}
-			}
+			});
 		}
 
 		ZoomCam(focusOnDadGlobal);
