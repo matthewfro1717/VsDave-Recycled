@@ -4076,7 +4076,7 @@ class PlayState extends MusicBeatState
 
 					destroyNote(daNote);
 				}
-			});
+			}
 		}
 
 		ZoomCam(focusOnDadGlobal);
