@@ -161,7 +161,7 @@ class PlayState extends MusicBeatState
 	public var elapsedtime:Float = 0;
 
 	public var elapsedexpungedtime:Float = 0;
-	
+
 	var focusOnDadGlobal:Bool = true;
 
 	var funnyFloatyBoys:Array<String> = ['dave-angey', 'bambi-3d', 'expunged', 'bambi-unfair', 'exbungo', 'dave-festival-3d', 'dave-3d-recursed', 'bf-3d'];
@@ -3715,9 +3715,7 @@ class PlayState extends MusicBeatState
 			Conductor.songPosition += 10000;
 			notes.forEachAlive(function(daNote:Note)
 			{
-			if(daNote.mustPress && botPlay)
-				if (daNote.strumTime + 800 < Conductor.songPosition)
-				{	
+				if (daNote.strumTime + 800 < Conductor.songPosition) {
 					daNote.active = false;
 					daNote.visible = false;
 
@@ -4009,13 +4007,51 @@ class PlayState extends MusicBeatState
 					daNote.kill();
 					notes.remove(daNote, true);
 					daNote.destroy();
-				
+					}
+				}
+				if(daNote.mustPress && botPlay) {
 				if(daNote.mustPress && botPlay) {
 					if(daNote.strumTime <= Conductor.songPosition || (daNote.isSustainNote && daNote.canBeHit && daNote.prevNote.wasGoodHit)) {
 						goodNoteHit(daNote);
 						boyfriend.holdTimer = 0;
 					}
 				}
+
+				var strumY:Float = 0;
+				if (!guitarSection) strumY = playerStrums.members[daNote.noteData].y;
+				if(!daNote.mustPress) strumY = dadStrums.members[daNote.noteData].y;
+				var swagWidth = 160 * Note.scales[mania];
+				var center:Float = strumY + swagWidth / 2;
+				if(daNote.isSustainNote && (daNote.mustPress || (!daNote.mustPress || (daNote.wasGoodHit || (daNote.prevNote.wasGoodHit && !daNote.canBeHit)))))
+				{
+					if (scrollType == 'downscroll')
+					{
+						if(daNote.y - daNote.scale.y + daNote.height >= center)
+						{
+							var swagRect = new FlxRect(0, 0, daNote.frameWidth, daNote.frameHeight);
+							swagRect.height = (center - daNote.y) / daNote.scale.y;
+							swagRect.y = daNote.frameHeight - swagRect.height;
+
+							daNote.clipRect = swagRect;
+						}
+						else
+							daNote.clipRect = null;
+					}
+					else if (scrollType == 'upscroll')
+					{
+						if (daNote.y + daNote.scale.y <= center)
+						{
+							var swagRect = new FlxRect(0, 0, daNote.width / daNote.scale.x, daNote.height / daNote.scale.y);
+							swagRect.y = (center - daNote.y) / daNote.scale.y;
+							swagRect.height -= swagRect.y;
+
+							daNote.clipRect = swagRect;
+						}
+						else
+							daNote.clipRect = null;
+					}
+				}
+
 				if (daNote.MyStrum != null)
 				{
 					daNote.y = yFromNoteStrumTime(daNote, daNote.MyStrum, scrollType == 'downscroll');
@@ -4041,8 +4077,8 @@ class PlayState extends MusicBeatState
 
 					destroyNote(daNote);
 				}
-			}
-		});
+			});
+		}
 
 		ZoomCam(focusOnDadGlobal);
 
@@ -4158,6 +4194,7 @@ class PlayState extends MusicBeatState
 			{
 				if (!bfplaying)
 				{
+					if (daNote.mustPress && botPlay)
 					{
 						bfplaying = true;
 					}
@@ -4291,7 +4328,7 @@ class PlayState extends MusicBeatState
 			closeExpungedWindow();
 		}
 		#end
-if (!botPlay)
+if (!botPlay) {
 		// Song Character Unlocks (Story Mode)
 		if (isStoryMode)
 		{
@@ -4421,13 +4458,13 @@ if (!botPlay)
 				// if ()
 				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
 
-				if (SONG.validScore && !botPlay)
+				if (SONG.validScore)
 				{
 					Highscore.saveWeekScore(storyWeek, campaignScore,
 						storyDifficulty, characteroverride == "none" || characteroverride == "bf" ? "bf" : characteroverride);
 				}
 
-				if (!botPlay) FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
+				FlxG.save.data.weekUnlocked = StoryMenuState.weekUnlocked;
 				FlxG.save.flush();
 			}
 			else
@@ -4742,7 +4779,6 @@ if (!botPlay)
 
 		var daRating:String = "sick";
 
-	if (!botPlay) {
 		if (noteDiff > Conductor.safeZoneOffset * 2)
 		{
 			daRating = 'shit';
@@ -4966,7 +5002,7 @@ if (!botPlay)
 					daNote.destroy();
 				}
 			}
-			else if (!theFunne && !botPlay)
+			else if (!theFunne)
 			{
 				if(!inCutscene)
 					badNoteCheck(null);
@@ -4977,7 +5013,6 @@ if (!botPlay)
 		{
 			notes.forEachAlive(function(daNote:Note)
 			{
-			    if(botPlay)
 				if (daNote.canBeHit && daNote.mustPress && daNote.isSustainNote)
 				{
 					if ((daNote.noteStyle == 'shape' && key5) || (daNote.noteStyle != 'shape' && !key5))
