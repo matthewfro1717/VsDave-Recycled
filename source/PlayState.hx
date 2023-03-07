@@ -4134,6 +4134,76 @@ class PlayState extends MusicBeatState
 				//center
 				Application.current.window.y = Math.round(((screenheight / 2) - (720 / 2)) + (Math.sin((elapsedexpungedtime / 30)) * 80));
 				Application.current.window.x = Std.int(windowSteadyX);
+					destroyNote(daNote);
+				}
+			});
+		}
+
+		ZoomCam(focusOnDadGlobal);
+
+		if (!inCutscene && !botPlay)
+			keyShit();
+
+		#if debug
+		if (FlxG.keys.justPressed.ONE)
+			endSong();
+		#end
+
+		if (updatevels)
+		{
+			stupidx *= 0.98;
+			stupidy += elapsed * 6;
+			if (BAMBICUTSCENEICONHURHURHUR != null)
+			{
+				BAMBICUTSCENEICONHURHURHUR.x += stupidx;
+				BAMBICUTSCENEICONHURHURHUR.y += stupidy;
+			}
+		}
+
+		if (window == null)
+		{
+			if (expungedWindowMode)
+			{
+				#if windows
+				popupWindow();
+				#end
+			}
+			else
+			{
+				return;
+			}
+		}
+		else if (expungedWindowMode)
+		{
+			var display = Application.current.window.display.currentMode;
+
+			@:privateAccess
+			var dadFrame = dad._frame;
+			if (dadFrame == null || dadFrame.frame == null) return; // prevent crashes (i hope)
+	  
+			var rect = new Rectangle(dadFrame.frame.x, dadFrame.frame.y, dadFrame.frame.width, dadFrame.frame.height);
+
+			expungedScroll.scrollRect = rect;
+
+			window.x = Std.int(expungedOffset.x);
+			window.y = Std.int(expungedOffset.y);
+
+			if (!expungedMoving)
+			{
+				elapsedexpungedtime += elapsed * 9;
+
+				var screenwidth = Application.current.window.display.bounds.width;
+				var screenheight = Application.current.window.display.bounds.height;
+
+				var toy = ((-Math.sin((elapsedexpungedtime / 9.5) * 2) * 30 * 5.1) / 1080) * screenheight;
+				var tox = ((-Math.cos((elapsedexpungedtime / 9.5)) * 100) / 1980) * screenwidth;
+
+				expungedOffset.x = ExpungedWindowCenterPos.x + tox;
+				expungedOffset.y = ExpungedWindowCenterPos.y + toy;
+
+				//center
+				Application.current.window.y = Math.round(((screenheight / 2) - (720 / 2)) + (Math.sin((elapsedexpungedtime / 30)) * 80));
+				Application.current.window.x = Std.int(windowSteadyX);
 				Application.current.window.width = 1280;
 				Application.current.window.height = 720;
 			}
