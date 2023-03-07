@@ -4020,7 +4020,7 @@ class PlayState extends MusicBeatState
 				var strumY:Float = 0;
 				if (!guitarSection) strumY = playerStrums.members[daNote.noteData].y;
 				if(!daNote.mustPress) strumY = dadStrums.members[daNote.noteData].y;
-				var swagWidth = 160 * Note.scales[mania];
+				var swagWidth = 160;
 				var center:Float = strumY + swagWidth / 2;
 				if(daNote.isSustainNote && (daNote.mustPress || (!daNote.mustPress || (daNote.wasGoodHit || (daNote.prevNote.wasGoodHit && !daNote.canBeHit)))))
 				{
