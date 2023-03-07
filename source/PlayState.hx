@@ -3943,42 +3943,30 @@ class PlayState extends MusicBeatState
 								dadmirror.playAnim('sing' + noteToPlay + altAnim, true);
 							}
 					}
-					cameraMoveOnNote(noteToPlay, 'dad');
+					cameraMoveOnNote(daNote.originalType, 'dad');
 					
 					dadStrums.forEach(function(sprite:StrumNote)
 					{
 						if (Math.abs(Math.round(Math.abs(daNote.noteData)) % dadStrumAmount) == sprite.ID)
 						{
-							if (daNote.noteStyle != 'guitarHero') {
-								sprite.playAnim('confirm', true);
-								sprite.animation.finishCallback = function(name:String)
-								{
-									sprite.playAnim('static', true);
-								}
-							} else {
-								sprite.animation.play('confirm', true);
-								if (sprite.animation.curAnim.name == 'confirm')
-								{
-									sprite.centerOffsets();
-									sprite.offset.x -= 13;
-									sprite.offset.y -= 13;
-								}
-								else
-								{
-									sprite.centerOffsets();
-								}
-								sprite.animation.finishCallback = function(name:String)
-								{
-									sprite.animation.play('static', true);
-									sprite.centerOffsets();
-								}
+							sprite.animation.play('confirm', true);
+							if (sprite.animation.curAnim.name == 'confirm')
+							{
+								sprite.centerOffsets();
+								sprite.offset.x -= 13;
+								sprite.offset.y -= 13;
+							}
+							else
+							{
+								sprite.centerOffsets();
+							}
+							sprite.animation.finishCallback = function(name:String)
+							{
+								sprite.animation.play('static', true);
+								sprite.centerOffsets();
 							}
 						}
-						sprite.pressingKey5 = daNote.noteStyle == 'shape';
 					});
-
-					daNote.hitByOpponent = true;
-
 					if (UsingNewCam)
 					{
 						focusOnDadGlobal = true;
@@ -3990,11 +3978,7 @@ class PlayState extends MusicBeatState
 						case 'cheating':
 							health -= healthtolower;
 						case 'unfairness':
-							var healthadj = 3;
-							switch (storyDifficulty) {
-								case 0: healthadj = 4;
-							}
-							health -= (healthtolower / healthadj);
+							health -= (healthtolower / 3);
 						case 'exploitation':
 							if (((health + (FlxEase.backInOut(health / 16.5)) - 0.002) >= 0) && !(curBeat >= 320 && curBeat <= 330))
 							{
