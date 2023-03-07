@@ -4083,14 +4083,15 @@ class PlayState extends MusicBeatState
 
 		ZoomCam(focusOnDadGlobal);
 
-		if (!inCutscene && !botPlay)
+      if (!inCutscene && !botPlay) {
 			keyShit();
 
 		#if debug
 		if (FlxG.keys.justPressed.ONE)
 			endSong();
 		#end
-
+                
+      }
 		if (updatevels)
 		{
 			stupidx *= 0.98;
