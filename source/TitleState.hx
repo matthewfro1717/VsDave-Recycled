@@ -20,11 +20,11 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.Assets;
 import lime.app.Application;
+import flixel.input.keyboard.FlxKey;
 #if desktop
 import Discord.DiscordClient;
 #end
-
-// only load this reference if its debug because its only needed for debug??? idk it might help with the file size or something 
+// only load this reference if its debug because its only needed for debug??? idk it might help with the file size or something
 #if debug
 import openfl.net.FileReference;
 import haxe.Json;
@@ -51,9 +51,9 @@ class TitleState extends MusicBeatState
 	var loopEyeTween:FlxTween;
 
 	override public function create():Void
-	{		
+	{
 		fun = FlxG.random.int(0, 999);
-		if(fun == 1)
+		if (fun == 1)
 		{
 			LoadingState.loadAndSwitchState(new SusState());
 		}
@@ -68,6 +68,8 @@ class TitleState extends MusicBeatState
 		DiscordClient.initialize();
 		#end
 
+		FlxG.sound.muteKeys = [FlxKey.ZERO];
+
 		super.create();
 
 		FlxG.save.bind('funkin', 'ninjamuffin99');
@@ -76,16 +78,16 @@ class TitleState extends MusicBeatState
 		LanguageManager.init();
 
 		Highscore.load();
-		
+
 		CoolUtil.init();
 
 		Main.fps.visible = !FlxG.save.data.disableFps;
 
 		CompatTool.initSave();
-		if(CompatTool.save.data.compatMode == null)
-        {
-            FlxG.switchState(new CompatWarningState());
-        }
+		if (CompatTool.save.data.compatMode == null)
+		{
+			FlxG.switchState(new CompatWarningState());
+		}
 
 		if (FlxG.save.data.weekUnlocked != null)
 		{
@@ -100,7 +102,6 @@ class TitleState extends MusicBeatState
 			if (!StoryMenuState.weekUnlocked[0])
 				StoryMenuState.weekUnlocked[0] = true;
 		}
-		
 
 		awaitingExploitation = FlxG.save.data.exploitationState == 'awaiting';
 
@@ -109,11 +110,10 @@ class TitleState extends MusicBeatState
 		#elseif CHARTING
 		FlxG.switchState(new ChartingState());
 		#else
-
 		new FlxTimer().start(1, function(tmr:FlxTimer)
 		{
 			startIntro();
-		});		
+		});
 		#end
 	}
 
@@ -138,7 +138,7 @@ class TitleState extends MusicBeatState
 			transIn = FlxTransitionableState.defaultTransIn;
 			transOut = FlxTransitionableState.defaultTransOut;
 
-			FlxG.sound.playMusic(Paths.music(awaitingExploitation ? 'freakyMenu_ex' : 'freakyMenu'), 0);			
+			FlxG.sound.playMusic(Paths.music(awaitingExploitation ? 'freakyMenu_ex' : 'freakyMenu'), 0);
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}
 
@@ -186,7 +186,7 @@ class TitleState extends MusicBeatState
 				type: PERSIST
 			});
 		}
-		
+
 		if (!awaitingExploitation)
 		{
 			gfDance = new FlxSprite(FlxG.width * 0.4, FlxG.height * 0.07);
@@ -294,20 +294,11 @@ class TitleState extends MusicBeatState
 			#end
 		}
 
-		#if debug
-		if (FlxG.keys.justPressed.S)
-		{
-			PlayState.SONG = Song.loadFromJson("bonus-song");
-			//PlayState.formoverride = 'shaggy';
-			LoadingState.loadAndSwitchState(new PlayState());
-		}
-		#end
-		
 		if (FlxG.keys.justPressed.ALT)
 		{
 			FlxG.switchState(new CompatWarningState());
 		}
-		
+
 		if (pressedEnter && !transitioning && skippedIntro)
 		{
 			titleText.animation.play('press');
@@ -319,10 +310,8 @@ class TitleState extends MusicBeatState
 
 			new FlxTimer().start(2, function(tmr:FlxTimer)
 			{
-				#if debug
-				FlxG.save.data.exploitationState = null;
-				#end
-				FlxG.switchState(FlxG.save.data.alreadyGoneToWarningScreen && FlxG.save.data.exploitationState != 'playing' ? new MainMenuState() : new OutdatedSubState());
+				FlxG.switchState(FlxG.save.data.alreadyGoneToWarningScreen
+					&& FlxG.save.data.exploitationState != 'playing' ? new MainMenuState() : new OutdatedSubState());
 			});
 		}
 
@@ -342,11 +331,10 @@ class TitleState extends MusicBeatState
 		{
 			remove(credGroup);
 			skippedIntro = true;
-	
+
 			FlxG.camera.fade(FlxColor.WHITE, 2.5, true);
 		}
 	}
-
 
 	override function beatHit()
 	{
@@ -357,43 +345,47 @@ class TitleState extends MusicBeatState
 			danceLeft = !danceLeft;
 
 			logoBl.animation.play('bump');
-	
-			if (danceLeft) gfDance.animation.play('danceRight');
-			else gfDance.animation.play('danceLeft');
-		}
-		switch (curBeat)
-		{
-			case 3:
-				addMoreText('TheBuilderXD');
-				addMoreText('Erizur, T5mpler');
-			case 4:
-				addMoreText('and our wonderful contributors!');
-			case 5:
-				deleteCoolText();
-			case 6:
-				createCoolText(['Supernovae by ArchWk']);
-			case 7:
-				addMoreText('Glitch by The Boneyard');
-			case 8:
-				deleteCoolText();
-			case 9:
-				createCoolText([curWacky[0]]);
-			case 10:
-				addMoreText(curWacky[1]);
-			case 11:
-				deleteCoolText();
-			case 12:
-				addMoreText("Friday Night Funkin'");
-			case 13:
-				addMoreText(awaitingExploitation ? 'Vs. Expunged' : 'VS. Dave');
-			case 14:
-				addMoreText(!awaitingExploitation  ? 'and Bambi' : 'The Full Mod');
-			case 15:
-				var text:String = !awaitingExploitation  ? 'The Full Mod' : 'HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA\nHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA\nHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA';
-				if (awaitingExploitation) FlxG.sound.play(Paths.sound('evilLaugh', 'shared'), 0.7);
-				addMoreText(text);
-			case 16:
-				skipIntro();
+
+			if (danceLeft)
+				gfDance.animation.play('danceRight');
+			else
+				gfDance.animation.play('danceLeft');
+
+			switch (curBeat)
+			{
+				case 3:
+					addMoreText('TheBuilderXD');
+					addMoreText('Erizur, T5mpler');
+				case 4:
+					addMoreText('and our wonderful contributors!');
+				case 5:
+					deleteCoolText();
+				case 6:
+					createCoolText(['Supernovae by ArchWk']);
+				case 7:
+					addMoreText('Glitch by The Boneyard');
+				case 8:
+					deleteCoolText();
+				case 9:
+					createCoolText([curWacky[0]]);
+				case 10:
+					addMoreText(curWacky[1]);
+				case 11:
+					deleteCoolText();
+				case 12:
+					addMoreText("Friday Night Funkin'");
+				case 13:
+					addMoreText(awaitingExploitation ? 'Vs. Expunged' : 'VS. Dave');
+				case 14:
+					addMoreText(!awaitingExploitation ? 'and Bambi' : 'The Full Mod');
+				case 15:
+					var text:String = !awaitingExploitation ? 'The Full Mod' : 'HAHAHHAHAHAHAHHAHAHAHAHHAHAHAHAHHAHA\nHAHAHHAHAHAHAHHAHAHAHAHHAHAHAHAHHAHA\nHAHAHHAHAHAHAHHAHAHAHAHHAHAHAHAHHAHA';
+					if (awaitingExploitation)
+						FlxG.sound.play(Paths.sound('evilLaugh', 'shared'), 0.7);
+					addMoreText(text);
+				case 16:
+					skipIntro();
+			}
 		}
 	}
 
@@ -423,7 +415,7 @@ class TitleState extends MusicBeatState
 		credGroup.add(coolText);
 		textGroup.add(coolText);
 	}
-	
+
 	function deleteCoolText()
 	{
 		while (textGroup.members.length > 0)
@@ -432,7 +424,7 @@ class TitleState extends MusicBeatState
 			textGroup.remove(textGroup.members[0], true);
 		}
 	}
-	
+
 	function deleteOneCoolText()
 	{
 		credGroup.remove(textGroup.members[0], true);
