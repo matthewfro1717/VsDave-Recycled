@@ -691,7 +691,7 @@ class PlayState extends MusicBeatState
 					stageCheck = 'overdrive';
 				case 'bonkers':
 					stageCheck = 'garrett-land';	
-				case 'bananacore | eletric-cockadoodledoo | electric-cockaldoodledoo':
+				case 'bananacore | eletric-cockadoodledoo | eletric-cockadoodledoo-two':
 					stageCheck = 'banana-hell';
 				case 'confronting-yourself | cuzsie-x-kapi-shipping-cute':
                     stageCheck = 'stage';
@@ -1328,7 +1328,7 @@ class PlayState extends MusicBeatState
 				preload('backgrounds/void/exploit/expunged_chains');
 				preload('backgrounds/void/exploit/broken_expunged_chain');
 				preload('backgrounds/void/exploit/glitchy_cheating_2');
-			case 'electric-cockaldoodledoo':
+			case 'eletric-cockadoodledoo-two':
 				preload('eletric-cockadoodledoo/characters/v2/Cockey');
 				// preload('eletric-cockadoodledoo/characters/v2/Pissey');
 				// preload('eletric-cockadoodledoo/characters/v2/Pooper');
@@ -6630,7 +6630,7 @@ class PlayState extends MusicBeatState
 					}
 				}
 
-			case 'eletric-cockadoodledoo':
+			case 'eletric-cockadoodledoo-two':
 				switch (curStep)
 				{
 					case 147:
