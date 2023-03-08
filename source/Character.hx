@@ -1159,6 +1159,7 @@ class Character extends FlxSprite
 
 				loadOffsetFile(curCharacter);
 
+				setGraphicSize(Std.int(width * 0.5));
 				barColor = FlxColor.fromRGB(228, 85, 81);
 				updateHitbox();
 				antialiasing = false;
@@ -1177,6 +1178,7 @@ class Character extends FlxSprite
 
 				loadOffsetFile(curCharacter);
 
+				setGraphicSize(Std.int(width * 0.5));
 				barColor = FlxColor.fromRGB(255, 206, 11);
 				updateHitbox();
 				antialiasing = false;
@@ -1290,7 +1292,7 @@ class Character extends FlxSprite
 
 				barColor = FlxColor.fromRGB(228, 85, 81);
 
-				setGraphicSize(Std.int(width * 2));
+				setGraphicSize(Std.int(width * 0.5));
 				updateHitbox();
 				antialiasing = false;
 
