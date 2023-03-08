@@ -6489,6 +6489,13 @@ class PlayState extends MusicBeatState
 						dad.alpha = 0;
 						curECCCharacter = "pissey";
 						FlxTween.tween(dad, {alpha: 1}, 5);
+					case 1530:
+						shag = new FlxSprite().loadGraphic(Paths.image("eletric-cockadoodledoo/shaggy from fnf 1", 'shared'));
+						shag.screenCenter();
+						shag.alpha = 0;
+						add(shag);
+						trace("Shaggy Fade In");
+                                                FlxTween.tween(shag, {alpha: 1}, 3);
 					case 1655:
 						for (sprite in cuzsieKapiEletricCockadoodledoo)
 						{
