@@ -258,7 +258,7 @@ class PauseSubState extends MusicBeatSubstate
 				FlxG.mouse.visible = false;
 				FlxG.switchState(new CharacterSelectState());
 			case "Bot Play":
-				PlayState.instance.botPlay = false;
+				PlayState.botPlay = false;
 				PlayState.instance.botplaySine = false;
 				PlayState.instance.botplayTxt.alpha = 1;
 				PlayState.instance.botplayTxt.visible = false;
