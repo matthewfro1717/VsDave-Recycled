@@ -16,6 +16,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.addons.display.FlxBackdrop;
 import lime.app.Application;
+import flixel.util.FlxAxes;
 
 class PauseSubState extends MusicBeatSubstate
 {
@@ -26,6 +27,7 @@ class PauseSubState extends MusicBeatSubstate
 		new PauseOption('Resume'),
 		new PauseOption('Restart Song'),
 		new PauseOption('Change Character'),
+		new PauseOption('Bot Play'),
 		new PauseOption('No Miss Mode'),
 		new PauseOption('Exit to menu')
 	];
@@ -42,7 +44,6 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		super();
 
-		
 		funnyTexts = new FlxTypedGroup<FlxText>();
 		add(funnyTexts);
 
@@ -55,7 +56,7 @@ class PauseSubState extends MusicBeatSubstate
 				expungedSelectWaitTime = new FlxRandom().float(2, 7);
 				patienceTime = new FlxRandom().float(15, 30);
 		}
-		
+
 		pauseMusic.volume = 0;
 		pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
 
@@ -66,6 +67,14 @@ class PauseSubState extends MusicBeatSubstate
 		backBg.alpha = 0;
 		backBg.scrollFactor.set();
 		add(backBg);
+
+                #if (flixel < "5.0.0") 
+		bg = new FlxBackdrop(Paths.image('ui/checkeredBG', 'preload'), #if (flixel < "5.0.0") 1, 1, true, true, #else XY, #end 1, 1);
+		bg.alpha = 0;
+		bg.antialiasing = true;
+		bg.scrollFactor.set();
+		add(bg);
+		#end
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
 		levelInfo.text += PlayState.SONG.song;
@@ -83,7 +92,7 @@ class PauseSubState extends MusicBeatSubstate
 		levelDifficulty.antialiasing = true;
 		levelDifficulty.borderSize = 2.5;
 		levelDifficulty.updateHitbox();
-		if ((PlayState.SONG.song.toLowerCase() == 'exploitation' && !PlayState.isGreetingsCutscene) || PlayState.storyDifficulty != 1)
+		if (PlayState.SONG.song.toLowerCase() == 'exploitation' && !PlayState.isGreetingsCutscene)
 		{
 			add(levelDifficulty);
 		}
@@ -97,16 +106,21 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(backBg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
-		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5,
-		onComplete: function(tween:FlxTween)
-		{
-			switch (PlayState.SONG.song.toLowerCase())
+		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {
+			ease: FlxEase.quartInOut,
+			startDelay: 0.5,
+			onComplete: function(tween:FlxTween)
 			{
-				case 'exploitation':
-					doALittleTrolling(levelDifficulty);
+				switch (PlayState.SONG.song.toLowerCase())
+				{
+					case 'exploitation':
+						doALittleTrolling(levelDifficulty);
+				}
 			}
-		}});
-		if (PlayState.isStoryMode || FreeplayState.skipSelect.contains(PlayState.SONG.song.toLowerCase()) || PlayState.instance.localFunny == PlayState.CharacterFunnyEffect.Recurser)
+		});
+		if (PlayState.isStoryMode
+			|| FreeplayState.skipSelect.contains(PlayState.SONG.song.toLowerCase())
+			|| PlayState.instance.localFunny == PlayState.CharacterFunnyEffect.Recurser)
 		{
 			menuItems.remove(PauseOption.getOption(menuItems, 'Change Character'));
 		}
@@ -114,7 +128,7 @@ class PauseSubState extends MusicBeatSubstate
 		{
 			if (PlayState.instance.localFunny == PlayState.CharacterFunnyEffect.Recurser)
 			{
-				if(item.optionName != 'Resume' && item.optionName != 'No Miss Mode')
+				if (item.optionName != 'Resume' && item.optionName != 'No Miss Mode')
 				{
 					menuItems.remove(PauseOption.getOption(menuItems, item.optionName));
 				}
@@ -180,6 +194,7 @@ class PauseSubState extends MusicBeatSubstate
 			selectOption();
 		}
 	}
+
 	function selectOption()
 	{
 		var daSelected:String = menuItems[curSelected].optionName;
@@ -198,13 +213,27 @@ class PauseSubState extends MusicBeatSubstate
 				{
 					if (PlayState.window != null)
 					{
-						PlayState.window.close();
+						PlayState.instance.closeExpungedWindow();
 					}
 				}
 				FlxG.mouse.visible = false;
 				FlxG.resetState();
 			case "Change Character":
 				if (MathGameState.failedGame)
+				{
+					MathGameState.failedGame = false;
+				}
+				funnyTexts.clear();
+				PlayState.characteroverride = 'none';
+				PlayState.formoverride = 'none';
+				PlayState.recursedStaticWeek = false;
+
+				Application.current.window.title = Main.applicationName;
+
+				if (PlayState.SONG.song.toLowerCase() == "exploitation")
+				{
+					Main.toggleFuckedFPS(false);
+					if (PlayState.window != null)
 					{
 						MathGameState.failedGame = false;
 					}
@@ -220,21 +249,28 @@ class PauseSubState extends MusicBeatSubstate
 						Main.toggleFuckedFPS(false);
 						if (PlayState.window != null)
 						{
-							PlayState.window.close();
+							PlayState.instance.closeExpungedWindow();
 						}
 					}
-					PlayState.instance.shakeCam = false;
-					PlayState.instance.camZooming = false;
-					FlxG.mouse.visible = false;
-					FlxG.switchState(new CharacterSelectState());	
+				}
+				PlayState.instance.shakeCam = false;
+				PlayState.instance.camZooming = false;
+				FlxG.mouse.visible = false;
+				FlxG.switchState(new CharacterSelectState());
+			case "Bot Play":
+				PlayState.botPlay = false;
+				PlayState.botplaySine = false;
+				PlayState.botplayTxt.visible = false;
 			case "No Miss Mode":
 				PlayState.instance.noMiss = !PlayState.instance.noMiss;
 				var nm = PlayState.SONG.song.toLowerCase();
+				#if release
 				if (['exploitation', 'cheating', 'unfairness', 'recursed', 'glitch', 'master', 'supernovae'].contains(nm))
 				{
 					PlayState.instance.health = 0;
 					close();
 				}
+				#end
 			case "Exit to menu":
 				if (MathGameState.failedGame)
 				{
@@ -252,7 +288,7 @@ class PauseSubState extends MusicBeatSubstate
 					Main.toggleFuckedFPS(false);
 					if (PlayState.window != null)
 					{
-						PlayState.window.close();
+						PlayState.instance.closeExpungedWindow();
 					}
 				}
 				PlayState.instance.shakeCam = false;
@@ -261,6 +297,7 @@ class PauseSubState extends MusicBeatSubstate
 				FlxG.switchState(new MainMenuState());
 		}
 	}
+
 	override function close()
 	{
 		funnyTexts.clear();
@@ -274,6 +311,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		super.destroy();
 	}
+
 	function doALittleTrolling(levelDifficulty:FlxText)
 	{
 		var difficultyHeight = levelDifficulty.height;
@@ -302,9 +340,9 @@ class PauseSubState extends MusicBeatSubstate
 			{
 				return;
 			}
-
 		}
 	}
+
 	function changeSelection(change:Int = 0):Void
 	{
 		curSelected += change;
@@ -332,6 +370,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 	}
 }
+
 class PauseOption
 {
 	public var optionName:String;
@@ -340,7 +379,7 @@ class PauseOption
 	{
 		this.optionName = optionName;
 	}
-	
+
 	public static function getOption(list:Array<PauseOption>, optionName:String):PauseOption
 	{
 		for (option in list)
