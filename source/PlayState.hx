@@ -1225,7 +1225,7 @@ class PlayState extends MusicBeatState
 				credits = LanguageManager.getTextString('exploitation_credit') + " " + (FlxG.save.data.selfAwareness ? CoolSystemStuff.getUsername() : 'Boyfriend') + "!";
 			case 'kabunga':
 				credits = LanguageManager.getTextString('kabunga_credit');
-	        case 'electric-cockaldoodledoo':
+	        case 'electric-cockadoodledoo-two':
 				credits = "Song by Cuzsie! (THIS SONG IS NOT CANON)";
 		    case 'electric-cockadoodledoo':
 				credits = "Song by Cuzsie! (THIS SONG IS NOT CANON)";
@@ -1428,7 +1428,7 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
-        botplayTxt.cameras = [camHUD];
+                botplayTxt.cameras = [camHUD];
 		if (kadeEngineWatermark != null)
 		{
 			kadeEngineWatermark.cameras = [camHUD];
