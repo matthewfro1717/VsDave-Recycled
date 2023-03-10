@@ -201,7 +201,7 @@ class OptionsMenu extends MusicBeatState
 					updateGroupControls(CompatTool.save.data.compatMode ? LanguageManager.getTextString('option_enable_compat') : LanguageManager.getTextString('option_disable_compat'), 11, 'Vertical');
 			        case 12:
                                         FlxG.save.data.botplay = !FlxG.save.data.botplay;
-					updateGroupControls(FlxG.save.data.botplay ? 'Bot Play ON' : 'Bot Play OFF', 12 'Vertical');
+					updateGroupControls(FlxG.save.data.botplay ? 'Bot Play ON' : 'Bot Play OFF', 12, 'Vertical');
 			}
 		}
 	}
