@@ -31,7 +31,7 @@ class SelectLanguageState extends MusicBeatState
 
       langaugeList = LanguageManager.getLanguages();
 		
-      #if (flixel < "5.0.0") 
+      #if (flixel < "5.2.2") 
       bg = new FlxBackdrop(Paths.image('ui/checkeredBG', 'preload'), 1, 1, true, true, 1, 1);
       bg.antialiasing = true;
       bg.color = langaugeList[curLanguageSelected].langaugeColor;
