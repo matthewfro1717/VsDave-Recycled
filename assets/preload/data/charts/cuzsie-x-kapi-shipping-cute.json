@@ -1,6 +1,6 @@
 {
 	"song": {
-		"player1": "kapi2",
+		"player1": "kapi",
 		"sectionLengths": [],
 		"notes": [
 			{
@@ -2601,7 +2601,7 @@
 				"mustHitSection": true
 			}
 		],
-		"player2": "cuzsiee-2",
+		"player2": "cuzsiee",
 		"gfVersion": "invis_gf",
 		"events": [],
 		"player3": null,
