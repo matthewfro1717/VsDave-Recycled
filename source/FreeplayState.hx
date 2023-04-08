@@ -269,16 +269,10 @@ class FreeplayState extends MusicBeatState
 				addWeek(['Blocked', 'Corn-Theft', 'Maze'], 2, ['bambi-new', 'bambi-new', 'bambi-new']);
 				addWeek(['Splitathon'], 3, ['the-duo']);
 				addWeek(['Shredder', 'Greetings', 'Interdimensional', 'Rano'], 4, ['bambi-new', 'tristan-festival', 'dave-festival-3d', 'dave-festival']);
-			case 'joke':
+			case 'joke':			
 				if (FlxG.save.data.hasPlayedMasterWeek)
 				{
 					addWeek(['Supernovae', 'Glitch', 'Master'], 5, ['bambi-joke']);
-					addWeek(['bonkers'], 2, ['garrett']);
-					addWeek(['confronting-yourself'], 4, ['tristan']);
-					addWeek(['cuzsie-x-kapi-shipping-cute'], 18, ['cuzsie']);
-					addWeek(['bananacore'], 19, ['the-trio-old']);
-					addWeek(['eletric-cockadoodledoo'], 17, ['the-trio']);
-					addWeek(['eletric-cockadoodledoo-two'], 17, ['the-squad']);
 				}
 				if (!FlxG.save.data.terminalFound)
 				{
@@ -294,6 +288,12 @@ class FreeplayState extends MusicBeatState
 					addWeek(['Roofs'], 7, ['baldi']);
 
 				addWeek(['Vs-Dave-Rap'], 1, ['dave-cool']);
+				addWeek(['bonkers'], 2, ['garrett']);
+				addWeek(['confronting-yourself'], 4, ['tristan']);
+				addWeek(['cuzsie-x-kapi-shipping-cute'], 18, ['cuzsie']);
+				addWeek(['bananacore'], 19, ['the-trio-old']);
+				addWeek(['eletric-cockadoodledoo'], 17, ['the-trio']);
+				addWeek(['eletric-cockadoodledoo-two'], 17, ['the-squad']);	
 				if (FlxG.save.data.vsDaveRapTwoFound)
 				{
 					addWeek(['Vs-Dave-Rap-Two'], 1, ['dave-cool']);
