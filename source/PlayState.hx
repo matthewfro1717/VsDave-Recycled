@@ -1343,6 +1343,8 @@ class PlayState extends MusicBeatState
 				preload('eletric-cockadoodledoo/kapicuzsie_front');
 				// preload('eletric-cockadoodledoo/muffin');
 				preload('eletric-cockadoodledoo/sad_bambi');
+				preload('backgrounds/void/bananaVoid2');
+				preload('backgrounds/void/bananaVoid3');
 			case 'eletric-cockadoodledoo':
 				preload('eletric-cockadoodledoo/characters/Bartholemew');
 				preload('eletric-cockadoodledoo/characters/cockey');
@@ -1358,6 +1360,8 @@ class PlayState extends MusicBeatState
 				// preload('eletric-cockadoodledoo/muffin');
 				preload('eletric-cockadoodledoo/sad_bambi');
 			// preload('eletric-cockadoodledoo/characters/Pissey');
+				preload('backgrounds/void/bananaVoid2');
+				preload('backgrounds/void/bananaVoid3');
 			case 'bananacore':
 				preload('bananacore/characters/Bartholemew');
 				preload('bananacore/characters/bombu');
@@ -1374,6 +1378,8 @@ class PlayState extends MusicBeatState
 				preload('bananacore/characters/Cockey');
 				preload('bananacore/characters/bombu');
 				// preload('expunged/old/bambi-unfair');
+				preload('backgrounds/void/bananaVoid2');
+				preload('backgrounds/void/bananaVoid3');
 			case 'bot-trot':
 				preload('backgrounds/bedroom/night/bed');
 				preload('backgrounds/bedroom/night/bg');
